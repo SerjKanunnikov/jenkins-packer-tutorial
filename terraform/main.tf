@@ -30,7 +30,7 @@ resource "yandex_compute_instance" "nginx" {
     initialize_params {
       image_id = "${data.yandex_compute_image.nginx_image.id}"
       type     = "network-nvme"
-      size     = "30"
+      size     = "13"
     }
   }
 
@@ -66,7 +66,7 @@ resource "yandex_compute_instance" "django" {
     initialize_params {
       image_id = "${data.yandex_compute_image.django_image.id}"
       type     = "network-nvme"
-      size     = "30"
+      size     = "13"
     }
   }
 
@@ -87,7 +87,7 @@ resource "yandex_compute_instance" "django" {
 }
 
 locals {
-  external_ips = ["${yandex_compute_instance.nginx.subnet.*.network_interface.0.nat_ip_address}"]
+  external_ips = ["${yandex_compute_instance.subnet.*.network_interface.0.nat_ip_address}"]
   internal_ips = ["${yandex_compute_instance.subnet.*.network_interface.0.ip_address}"]
 
 }
